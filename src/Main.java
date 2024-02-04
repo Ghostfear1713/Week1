@@ -1,8 +1,10 @@
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -175,7 +177,49 @@ public class Main {
             System.out.println("There are no employees in that month");
         }*/
 
-        
+        //ASSIGNMENT 4.4 - Group employees by birth month and display the count of employees in each group.
+        //_________________________________________________________________________________________________
+        //We'll start of by creating our listOfEmployees again
+        /*List<Employee> listOfEmployees = new ArrayList<>(Arrays.asList(
+                new Employee("Orhani", LocalDate.of(1995, 12, 6)),
+                new Employee("Ashkhaan", LocalDate.of(1990, 8, 25)),
+                new Employee("Lion", LocalDate.of(1982, 11, 3))
+        ));
+
+        //Now we want to Map employees with a given month and count how many there is in that month
+        Map<Integer, Long> employeeCount = listOfEmployees.stream()
+                //
+                .collect(Collectors.groupingBy(
+                        //employee -> We take an employee as input and want to do something with it
+                        //employee.getBirthdate(): - This part accesses the birthday of the employee. Its like saying "Get the birthday of this employee"
+                        //getMonthValue() - This will get the month value from the birthdate
+                        //ALL put together "Group employees by their birth month, and for each group, count how many employees share that birth month."
+                        employee -> employee.getBirthDate().getMonthValue(),
+                        Collectors.counting()
+                ));
+
+        //employeeCount is a map, so therefor we need 2 arguments in order to use it - Right now, we're saying that for each Integer (month) we assign that a value Long (
+        employeeCount.forEach((month, count) ->
+                System.out.println("Month " + month + ": " + count + " employees"));*/
+
+
+        //ASSIGNMENT 4.5 - List all employees who has a birthday in the current month.
+        //____________________________________________________________________________
+        //We'll start of by creating our listOfEmployees again
+        List<Employee> listOfEmployees = new ArrayList<>(Arrays.asList(
+                new Employee("Orhani", LocalDate.of(1995, 12, 6)),
+                new Employee("Ashkhaan", LocalDate.of(1990, 2, 25)),
+                new Employee("Lion", LocalDate.of(1982, 11, 3))
+        ));
+
+        Month currentMonth = LocalDate.now().getMonth();
+
+        List<Employee> employeesInCurrentMonth = listOfEmployees.stream()
+                .filter(employee -> employee.getBirthDate().getMonth() == currentMonth)
+                .collect(Collectors.toList());
+        System.out.println("Number of Employees in Current Month: " + employeesInCurrentMonth.size());
+
+        employeesInCurrentMonth.forEach(employee -> System.out.println(employee.getName()));
 
 
 
